@@ -1,0 +1,162 @@
+openapi: 3.0.3
+info:
+  title: Onboarding API
+  version: 1.1
+  description: Moi STD22022
+servers:
+  - url: https://STD22022
+paths:
+  /students:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Rakoto
+                  birthdate:
+                    type: string
+                    example: 2000-01-01
+        '500':
+          description: Internal Servor Error
+    post:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: Rakoto
+                  birthdate:
+                    type: string
+                    example: 2000-01-01
+        '500':
+          description: Internal Servor Error
+    put:
+      description: Update an existing student
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+        - in: path
+          name: name
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: birthdate
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  birthdate:
+                    type: string
+        '500':
+          description: Internal Servor Error
+    delete:
+      description: delete a student
+      parameters:
+        - name: id
+          in: path
+          required: false
+          schema:
+            type: integer
+        - name: name
+          in: path
+          required: false
+          schema:
+            type: string
+        - name: birthdate
+          in: path
+          required: false
+          schema:
+            type: string
+  /teachers:
+   get:
+    responses:
+       '200':
+         content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 name:
+                  type: integer
+                  example: Tokimahery
+                 lastname:
+                   type: string
+                   example: Ramarozaka
+                 subjects:
+                   $ref: '#/components/schemas/SubjectList'
+       '500':
+         description: Internal Servor Error
+   post:
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Tokimahery
+                lastname:
+                  type: string
+                  example: Ramarozaka
+                subjects:
+                  $ref: '#/components/schemas/SubjectList'
+      '500':
+        description: Internal Servor Error
+components:
+  schemas:
+    Subject1:
+      type: object
+      properties:
+        description:
+          type: string
+          example: algorithme
+        name:
+          type: string
+          example: PROG1
+    Subject2:
+      type: object
+      properties:
+        description:
+          type: string
+          example: design
+        name:
+          type: string
+          example: WEB1
+    SubjectList:
+      type: array
+      items:
+        type: object
+        allOf:
+          - $ref: '#/components/schemas/Subject1'
+          - $ref: '#/components/schemas/Subject2'
